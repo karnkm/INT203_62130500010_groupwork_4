@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Vue Js - HelloWorld App</title>
+
+  <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+  <!-- Using via Google Web Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- https://tailwindcss.com/docs/installation -->
+  <!-- Using Tailwind via CDN -->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="app" class="max-w-xl mx-auto my-10 space-y-6 bg-yellow-50">
+    <h1 class="font-serif text-4xl italic tracking-wider text-indigo-700 ">Friends Photo Gallery ( {{ tasks.filter( t =>
+      !t.done ).length }} )</h1>
+
+    <span class="material-icons text-5xl cursor-pointer" v-show="!searchbutton" @click="searchBarToggle">search </span>
+    <div v-show="searchbutton"><input type="text" placeholder="Searching photos:" v-model="message"
+        class="border border-black">
+      <p>{{message}}</p>
+      <button @click="searchBarToggle" class="bg-green-500 text-white  py-1 px-2 rounded">Cancel</button>
+    </div>
+
+    <div v-if="searching.length !== 0" v-for="(task,index) in searching">
+      <img v-bind:src="task.image" alt="task.title" class="w-24 py-3" v-on:click="toggleDone(index)">
+      <span class="text-pink-400 font-semibold font-serif text-xl">{{task.title}} </span>
+      <span v-show="task.done" class="material-icons text-red-400">favorite</span>
+    </div>
+
+    <div v-else class="">
+      <h2 class="text-4xl text-blue-400">No Photo!!!</h2>
+    </div>
+
+    <!-- <ul>
+      <li  :key="index.id" class="py-3.5">
+        
+      </li>
+    </ul> -->
+
+
+  </div>
+
+  <!-- <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="content"> <a href="#">
+                    <div class="content-overlay"></div> <img class="content-image" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557246503/3_zoom_1.jpg">
+                    <div class="content-details fadeIn-bottom">
+                        <h3 class="content-title">Geysers Valley</h3>
+                        <p class="content-text"><i class="fa fa-map-marker"></i> Russia</p>
+                    </div>
+                </a> </div>
+        </div>
+        <div class="col-md-4">
+            <div class="content"> <a href="#">
+                    <div class="content-overlay"></div> <img class="content-image" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557246502/test_zoom.jpg">
+                    <div class="content-details fadeIn-bottom">
+                        <h3 class="content-title">Khumbu Valley</h3>
+                        <p class="content-text"><i class="fa fa-map-marker"></i> Nepal</p>
+                    </div>
+                </a> </div>
+        </div>
+        <div class="col-md-4">
+            <div class="content"> <a href="#">
+                    <div class="content-overlay"></div> <img class="content-image" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557246499/3_zoom_2.jpg">
+                    <div class="content-details fadeIn-bottom">
+                        <h3 class="content-title">Waipi’o Valley</h3>
+                        <p class="content-text"><i class="fa fa-map-marker"></i> Hawaii</p>
+                    </div>
+                </a> </div>
+        </div>
+    </div>
+</div> -->
+
+  <!-- my main.js -->
+  <script src="./main.js"></script>
+</body>
+
+</html>
