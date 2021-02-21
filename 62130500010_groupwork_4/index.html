@@ -21,67 +21,34 @@
 
 <body>
   <div id="app" class="max-w-xl mx-auto my-10 space-y-6 bg-yellow-50">
-    <h1 class="font-serif text-4xl italic tracking-wider text-indigo-700 ">Friends Photo Gallery ( {{ tasks.filter( t =>
-      !t.done ).length }} )</h1>
+    <h1 class="font-serif text-4xl italic tracking-wider text-indigo-700 ">Friends Photo Gallery ( {{ countUndone}} )
+    </h1>
 
     <span class="material-icons text-5xl cursor-pointer" v-show="!searchbutton" @click="searchBarToggle">search </span>
-    <div v-show="searchbutton"><input type="text" placeholder="Searching photos:" v-model="message"
-        class="border border-black">
+
+    <div v-show="searchbutton"><input type="text" placeholder="Searching photos:" v-model="searchText"
+        @keyup.enter="search" class="border border-black">
       <p>{{message}}</p>
-      <button @click="searchBarToggle" class="bg-green-500 text-white  py-1 px-2 rounded">Cancel</button>
+      <button @click="searchBarToggle" class="bg-green-500 text-white py-1 px-2 rounded">Cancel</button>
+    </div>
+
+    <div id="bigPicture" class="h-96 max-w-xl bg-black flex justify-center" v-if="isBigPicture">
+      <img :src="bigPictureSrc">
+      <div @click="isBigPicture=false" class="w-10 h-10 absolute bg-red-400 mt-3.5 ml-28 -mr-96"></div>
     </div>
 
     <div v-if="searching.length !== 0" v-for="(task,index) in searching">
-      <img v-bind:src="task.image" alt="task.title" class="w-24 py-3" v-on:click="toggleDone(index)">
+      <img v-bind:src="task.image" alt="task.title" class="w-24 py-3" @click="bigPic(index)">
       <span class="text-pink-400 font-semibold font-serif text-xl">{{task.title}} </span>
-      <span v-show="task.done" class="material-icons text-red-400">favorite</span>
+      <span v-show="!task.done" class="material-icons text-red-400 cursor-pointer" v-on:click="toggleDone(index)">favorite_border</span>
+      <span v-show="task.done" class="material-icons text-red-400 cursor-pointer" v-on:click="toggleDone(index)">favorite</span>
     </div>
 
     <div v-else class="">
       <h2 class="text-4xl text-blue-400">No Photo!!!</h2>
     </div>
 
-    <!-- <ul>
-      <li  :key="index.id" class="py-3.5">
-        
-      </li>
-    </ul> -->
-
-
   </div>
-
-  <!-- <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="content"> <a href="#">
-                    <div class="content-overlay"></div> <img class="content-image" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557246503/3_zoom_1.jpg">
-                    <div class="content-details fadeIn-bottom">
-                        <h3 class="content-title">Geysers Valley</h3>
-                        <p class="content-text"><i class="fa fa-map-marker"></i> Russia</p>
-                    </div>
-                </a> </div>
-        </div>
-        <div class="col-md-4">
-            <div class="content"> <a href="#">
-                    <div class="content-overlay"></div> <img class="content-image" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557246502/test_zoom.jpg">
-                    <div class="content-details fadeIn-bottom">
-                        <h3 class="content-title">Khumbu Valley</h3>
-                        <p class="content-text"><i class="fa fa-map-marker"></i> Nepal</p>
-                    </div>
-                </a> </div>
-        </div>
-        <div class="col-md-4">
-            <div class="content"> <a href="#">
-                    <div class="content-overlay"></div> <img class="content-image" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557246499/3_zoom_2.jpg">
-                    <div class="content-details fadeIn-bottom">
-                        <h3 class="content-title">Waipi’o Valley</h3>
-                        <p class="content-text"><i class="fa fa-map-marker"></i> Hawaii</p>
-                    </div>
-                </a> </div>
-        </div>
-    </div>
-</div> -->
-
   <!-- my main.js -->
   <script src="./main.js"></script>
 </body>

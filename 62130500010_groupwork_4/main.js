@@ -6,8 +6,11 @@ const app = {
             { image: '/images/pizza.jpg', title: 'Pizza' },
             { image: '/images/cake.jpg', title: 'Cake' }
             ],
-            message:'',
-            searchbutton: false
+            message: '',
+            searchbutton: false,
+            searchText: '',
+            isBigPicture: false,
+            bigPictureSrc: '',
         }
     },
     methods: {
@@ -16,7 +19,16 @@ const app = {
         },
 
         searchBarToggle() {
+            this.searchText = ''
             this.searchbutton = !this.searchbutton
+        },
+        search() {
+            this.message = this.searchText;
+        },
+        bigPic(index) {
+            console.log(this.tasks[index]);
+            this.isBigPicture = true;
+            this.bigPictureSrc = this.tasks[index].image;
         }
     },
 
@@ -24,11 +36,8 @@ const app = {
         countUndone() {
             return this.tasks.filter(t => !t.done).length
         },
-        searching(){
-            console.log(this.tasks.filter((member)=> {
-                return member.title.toLowerCase().includes(this.message.toLowerCase());
-            }))
-            return this.tasks.filter((member)=> {
+        searching() {
+            return this.tasks.filter((member) => {
                 return member.title.toLowerCase().includes(this.message.toLowerCase());
             });
         }
