@@ -26,7 +26,7 @@ const app = {
             this.message = this.searchText;
         },
         bigPic(index) {
-            console.log(this.tasks[index]);
+            
             this.isBigPicture = true;
             this.bigPictureSrc = this.tasks[index].image;
         }
